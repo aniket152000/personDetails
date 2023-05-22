@@ -6,6 +6,8 @@ const xml2js = require('xml2js');
 const app = express();
 app.use(bodyParser.json());
 
+const port = process.env.PORT || 3000;
+
 // Define your RESTful endpoint
 app.post('/persondetails', async (req, res) => {
   try {
@@ -32,7 +34,7 @@ app.post('/persondetails', async (req, res) => {
     };
 
     // Make the SOAP request to the SOAP API endpoint
-    const soapResponse = await axios.post('http://172.40.0.60:8009//ouaf/XAIApp/xaiserver/CmRtrPersonDetailsFromContact', xmlPayload, { headers });
+    const soapResponse = await axios.post('http://14.141.75.90:8009//ouaf/XAIApp/xaiserver/CmRtrPersonDetailsFromContact', xmlPayload, { headers });
 
     // Convert the SOAP response to JSON
     const xmlParser = new xml2js.Parser({ explicitArray: false });
@@ -82,7 +84,8 @@ app.post('/persondetails', async (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
-  console.log('Server is running on port 3001');
+app.listen(port, "0.0.0.0", function () {
+  console.log(`Server is running on port ${port}`);
 });
+
 
